@@ -1712,34 +1712,29 @@ S\rightarrow b
 \end{cases}
 $$
 
-Responda sem consultar o gabarito:
+## Responda sem consultar o gabarito:
 
-### 1.
+### 1. A palavra `b` pode ser gerada?
+        Sim. A derivação começa pelo símbolo inicial e aplica diretamente a segunda regra: $S \Rightarrow b$
 
-A palavra `b` pode ser gerada?
+### 2. A palavra `ab` pode ser gerada?
+    Sim. Aplica-se a primeira regra uma vez, seguida da segunda: $S \Rightarrow aS \Rightarrow ab$
 
-### 2.
+### 3. A palavra `aab` pode ser gerada?
+    Sim.
+    $S \Rightarrow aS \Rightarrow aaS \Rightarrow aab$
 
-A palavra `ab` pode ser gerada?
+### 4. A palavra `aaab` pode ser gerada?
+    Sim.
+    $S \Rightarrow aS \Rightarrow aaS \Rightarrow aaaS \Rightarrow aaab$
 
-### 3.
+### 5. A palavra `aba` pode ser gerada?
+    Não. A regra $S \rightarrow b$ substitui o último não terminal $S$ por um terminal $b$, encerrando imediatamente a derivação. Como não há mais variáveis disponíveis depois que o $b$ é gerado, é impossível adicionar um $a$ no final da palavra.
 
-A palavra `aab` pode ser gerada?
+### 6. Escreva a derivação completa de `aaaab`.
+    $$S \Rightarrow aS \Rightarrow aaS \Rightarrow aaaS \Rightarrow aaaaS \Rightarrow aaaab$$
 
-### 4.
-
-A palavra `aaab` pode ser gerada?
-
-### 5.
-
-A palavra `aba` pode ser gerada?
-
-### 6.
-
-Escreva a derivação completa de `aaaab`.
-
-### 7.
-
-Descreva, com suas palavras, o padrão das palavras geradas por essa gramática.
-
+### 7. Descreva, com suas palavras, o padrão das palavras geradas por essa gramática.
+    Sempre que a regra $S \rightarrow aS$ é aplicada, ela adiciona um prefixo a e mantém o ciclo aberto. A derivação só é concluída (fechada) quando a regra $S \rightarrow b$ é aplicada no final. Formalmente, a linguagem gerada é $L = \{a^nb \mid n \ge 0\}$.
+    
 > **Dica:** observe o que acontece quando aplicamos várias vezes $S\rightarrow aS$ e, finalmente, utilizamos $S\rightarrow b$.
