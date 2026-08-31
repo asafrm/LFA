@@ -1,0 +1,60 @@
+## Enunciado
+
+| **Bloco 1 — Derivação** | **Bloco 2 — GLC** | **Bloco 3 — Classificação** |
+|---|---|---|
+| **Dada G₁:** `S → aS \| b` | **Dada G₂:** `S → aSb \| ε` | **Classifique como:** Regular ou Livre de Contexto |
+| **A)** Gere a palavra `aaab`. | **A)** Gere a palavra `aaabbb`. | **Gramática:** `S → aA \| A → b` |
+| **B)** Explique como você sabe que a derivação terminou. | **B)** É possível gerar `aabbb`? Justifique. | |
+
+---
+
+# Respostas dos Exercícios
+
+**Bloco 1 — Derivação** 
+**Dada G₁:** `S → aS \| b
+
+## A) Gere a palavra aaab
+    G₁ = ({S},{b}, {S-> aS | b})
+## Produções
+S-> aS: substituímos S por aS, assim podemos dar continuídade com a derivação;
+S-> b: ao final substituímos S por b, desse modo finalizamos a derivação.
+
+## Derivação
+S-> aS
+ -> aaS
+ -> aaaS
+ -> aaab
+### Palavra gerada: aaab
+
+## B)Explique como você sabe que a derivação terminou.
+Uma derivação é concluída quando a cadeia resultante é formada exclusivamente por símbolos terminais (neste caso, a e b). Como não restou nenhum símbolo não terminal (a variável S) na cadeia final $aaab$, não há mais o que substituir, encerrando o processo.
+
+**Bloco 2 — GLC** 
+**Dada G₂:** `S → aSb \| ε` 
+
+## A) Gere a palavra `aaabbb`
+G₂ ({S}, {a,b}, {S → aSb, S → ε}, S)
+
+## Produções
+S-> aSb: substituímos S por aSb, desse modo adicionamos um a à esquerda e um b à direira mantendo o S para continuarmos a derivação;
+S-> ε: por fim substituímos S por ε (palavra vazia), para finalizar a derivação.
+
+## Derivação
+S-> aSb
+ -> aaSbb
+ -> aaaSbbb
+ -> aaaεbbb
+ -> aaabbb
+### Palavra gerada: aaabbb
+
+## B) É possível gerar aabbb? Justifique:
+Não. A mecânica da regra de produção S -> aSb garante que, para cada a gerado à esquerda, um b correspondente seja obrigatoriamente gerado à direita. 
+Consequentemente, essa gramática só consegue produzir palavras onde as quantidades de a e b são perfeitamente iguais (formato lógico a^nb^n). A palavra aabbb possui desequilíbrio (dois a para três b), tornando sua geração matematicamente impossível com as regras fornecidas.
+
+**Bloco 3 — Classificação**
+
+**Classifique como:** Regular ou Livre de Contexto
+**Gramática:** `S → aA \| A → b`
+
+As produções S -> aA e A | A → caracterizam uma Gramática Regular (mais especificamente, Linear à Direita).
+A justificativa está na sua estrutura estrita: o lado direito de cada regra apresenta no máximo um único símbolo terminal (a ou b), que pode ou não ser seguido por, no máximo, uma única variável (A). Embora pela Hierarquia de Chomsky toda gramática regular pertença também ao conjunto das Livres de Contexto, a classificação "Regular" é a resposta correta por apontar o nível de restrição exato e mais profundo ao qual essa gramática pertence.
