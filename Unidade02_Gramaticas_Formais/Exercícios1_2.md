@@ -1715,26 +1715,26 @@ $$
 ## Responda sem consultar o gabarito:
 
 ### 1. A palavra `b` pode ser gerada?
-        Sim. A derivação começa pelo símbolo inicial e aplica diretamente a segunda regra: $S \Rightarrow b$
-
+Sim. A derivação começa pelo símbolo inicial e aplica diretamente a segunda regra: 
+$S \Rightarrow b$
 ### 2. A palavra `ab` pode ser gerada?
-    Sim. Aplica-se a primeira regra uma vez, seguida da segunda: $S \Rightarrow aS \Rightarrow ab$
+Sim. Aplica-se a primeira regra uma vez, seguida da segunda:
 
 ### 3. A palavra `aab` pode ser gerada?
-    Sim.
-    $S \Rightarrow aS \Rightarrow aaS \Rightarrow aab$
+Sim.
+$S \Rightarrow aS \Rightarrow aaS \Rightarrow aab$
 
 ### 4. A palavra `aaab` pode ser gerada?
-    Sim.
-    $S \Rightarrow aS \Rightarrow aaS \Rightarrow aaaS \Rightarrow aaab$
+Sim.
+$S \Rightarrow aS \Rightarrow aaS \Rightarrow aaaS \Rightarrow aaab$
 
 ### 5. A palavra `aba` pode ser gerada?
-    Não. A regra $S \rightarrow b$ substitui o último não terminal $S$ por um terminal $b$, encerrando imediatamente a derivação. Como não há mais variáveis disponíveis depois que o $b$ é gerado, é impossível adicionar um $a$ no final da palavra.
+Não. A regra $S \rightarrow b$ substitui o último não terminal $S$ por um terminal $b$, encerrando imediatamente a derivação. Como não há mais variáveis disponíveis depois que o $b$ é gerado, é impossível adicionar um $a$ no final da palavra.
 
 ### 6. Escreva a derivação completa de `aaaab`.
-    $$S \Rightarrow aS \Rightarrow aaS \Rightarrow aaaS \Rightarrow aaaaS \Rightarrow aaaab$$
+$$S \Rightarrow aS \Rightarrow aaS \Rightarrow aaaS \Rightarrow aaaaS \Rightarrow aaaab$$
 
 ### 7. Descreva, com suas palavras, o padrão das palavras geradas por essa gramática.
-    Sempre que a regra $S \rightarrow aS$ é aplicada, ela adiciona um prefixo a e mantém o ciclo aberto. A derivação só é concluída (fechada) quando a regra $S \rightarrow b$ é aplicada no final. Formalmente, a linguagem gerada é $L = \{a^nb \mid n \ge 0\}$.
+Sempre que a regra $S \rightarrow aS$ é aplicada, ela adiciona um prefixo a e mantém o ciclo aberto. A derivação só é concluída (fechada) quando a regra $S \rightarrow b$ é aplicada no final. Formalmente, a linguagem gerada é $L = \{a^nb \mid n \ge 0\}$.
     
 > **Dica:** observe o que acontece quando aplicamos várias vezes $S\rightarrow aS$ e, finalmente, utilizamos $S\rightarrow b$.
