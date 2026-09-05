@@ -11,12 +11,10 @@
 
 | Campo | Preenchimento |
 |---|---|
-| Turma | |
-| Data | |
-| Integrante 1 | |
-| Integrante 2 | |
-| Integrante 3 | |
-| Integrante 4 | |
+| Turma | N1 |
+| Data | 01/09/2026 |
+| Integrante | Asafe Rodrigues Marinho |
+
 
 ## Orientações
 
