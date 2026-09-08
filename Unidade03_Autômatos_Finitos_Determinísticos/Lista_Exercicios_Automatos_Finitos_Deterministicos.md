@@ -892,35 +892,153 @@ O grupo deverá entregar um único arquivo `README.md`, contendo:
 - evidência dos testes no JFLAP;
 - conclusão do grupo.
 
-## Modelo para o desafio final
-
 ```markdown
-## Desafio final
-
 ### Problema escolhido
+
+**Elevador de três andares**
+
+O elevador atende:
+
+- Térreo;
+- Primeiro andar;
+- Segundo andar.
+
+As entradas são:
+
+- `subir`;
+- `descer`.
+
+Se o elevador estiver no segundo andar e receber `subir`, permanece no segundo andar.  
+Se estiver no térreo e receber `descer`, permanece no térreo.
+
+Para fins de reconhecimento, o estado de aceitação será o segundo andar.
+
+---
 
 ### Estados e significado
 
+```text
+q0 = Térreo
+q1 = Primeiro andar
+q2 = Segundo andar
+```
+
 ### Alfabeto
+
+```text
+Σ = {subir, descer}
+```
 
 ### Estado inicial e estados finais
 
+```text
+q0 = q0
+F = {q2}
+```
+
 ### Tabela de transições
+
+| Estado | subir | descer |
+|---|---|---|
+| q0 | q1 | q0 |
+| q1 | q2 | q0 |
+| q2 | q2 | q1 |
 
 ### Diagrama
 
+```text
+→ q0 --subir--> q1 --subir--> ((q2))
+  q0 --descer--> q0
+  q1 --descer--> q0
+  q2 --subir--> q2
+  q2 --descer--> q1
+```
+
 ### Definição formal
-M = (Σ, Q, δ, q0, F)
+
+```text
+M = (Σ,Q,δ,q0,F)
+
+Σ = {subir, descer}
+Q = {q0,q1,q2}
+q0 = q0
+F = {q2}
+```
 
 ### Testes realizados
-| Entrada | Resultado esperado | Resultado obtido |
-|---|---|---|
-| | | |
 
-### Evidência no JFLAP
+#### 1. Entrada: `subir subir`
 
-### Conclusão
+```text
+q0 --subir--> q1
+q1 --subir--> q2
 ```
+
+Resultado: **ACEITA**
+
+#### 2. Entrada: `subir`
+
+```text
+q0 --subir--> q1
+```
+
+Resultado: **REJEITA**
+
+#### 3. Entrada: `subir subir descer`
+
+```text
+q0 --subir--> q1
+q1 --subir--> q2
+q2 --descer--> q1
+```
+
+Resultado: **REJEITA**
+
+#### 4. Entrada: `descer subir subir`
+
+```text
+q0 --descer--> q0
+q0 --subir--> q1
+q1 --subir--> q2
+```
+
+Resultado: **ACEITA**
+
+#### 5. Entrada: `subir descer subir subir`
+
+```text
+q0 --subir--> q1
+q1 --descer--> q0
+q0 --subir--> q1
+q1 --subir--> q2
+```
+
+Resultado: **ACEITA**
+
+### Por que o modelo é determinístico?
+
+O modelo é determinístico porque, para cada estado e cada símbolo de entrada, existe apenas um próximo estado possível.
+
+Por exemplo, em `q1`:
+
+```text
+subir  → q2
+descer → q0
+```
+
+Não existe ambiguidade na escolha do próximo estado.
+
+---
+
+# Conclusão
+
+Com os exercícios foi possível compreender os principais conceitos relacionados aos Autômatos Finitos Determinísticos. Foram identificados estados, alfabetos, funções de transição, estados iniciais e estados finais, além de analisar cadeias e determinar sua aceitação ou rejeição.
+
+Também foi possível construir AFDs para diferentes linguagens e situações reais. A principal característica observada é o determinismo: para cada estado e símbolo de entrada existe exatamente uma transição possível.
+
+A atividade também demonstrou como autômatos podem ser utilizados para representar sistemas como semáforos, sistemas de login, elevadores e outros processos computacionais.
+
+Por fim, a implementação no JFLAP permite visualizar o autômato e confirmar, por meio de testes, se as cadeias são aceitas ou rejeitadas conforme o comportamento esperado.
 
 > **Importante:** não basta apresentar o diagrama. Demonstre como o AFD processa cada cadeia, estado por estado, até decidir pela aceitação ou rejeição.
 
