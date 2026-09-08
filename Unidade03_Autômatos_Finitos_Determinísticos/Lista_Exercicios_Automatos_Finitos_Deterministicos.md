@@ -974,7 +974,7 @@ q0 --subir--> q1
 q1 --subir--> q2
 ```
 
-Resultado: **ACEITA**
+Resultado: Aceita.
 
 #### 2. Entrada: `subir`
 
@@ -982,7 +982,7 @@ Resultado: **ACEITA**
 q0 --subir--> q1
 ```
 
-Resultado: **REJEITA**
+Resultado: Rejeita.
 
 #### 3. Entrada: `subir subir descer`
 
@@ -992,8 +992,7 @@ q1 --subir--> q2
 q2 --descer--> q1
 ```
 
-Resultado: **REJEITA**
-
+Resultado: Rejeita.
 #### 4. Entrada: `descer subir subir`
 
 ```text
@@ -1002,7 +1001,7 @@ q0 --subir--> q1
 q1 --subir--> q2
 ```
 
-Resultado: **ACEITA**
+Resultado: Aceita.
 
 #### 5. Entrada: `subir descer subir subir`
 
@@ -1013,7 +1012,7 @@ q0 --subir--> q1
 q1 --subir--> q2
 ```
 
-Resultado: **ACEITA**
+Resultado: Aceita.
 
 ### Por que o modelo é determinístico?
 
