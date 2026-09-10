@@ -859,6 +859,10 @@ O estado `qP` representa uma quantidade par de símbolos `1`, enquanto `qI` repr
 
 Cada vez que aparece `1`, o autômato troca de estado. Quando aparece `0`, permanece no mesmo estado.
 
+### Teste no JFLAP
+<img width="732" height="487" alt="image" src="https://github.com/user-attachments/assets/6a3aae8d-5e4b-420d-999f-e59616d25abc" />
+
+
 ---
 
 # Desafio final
