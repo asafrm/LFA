@@ -51,6 +51,8 @@ L = { w ∈ {0,1}* | w termina em 00 }
 | `101` | Rejeitada | Termina em `01` |
 | `001` | Rejeitada | Termina em `01` |
 
+<img width="1313" height="871" alt="image" src="https://github.com/user-attachments/assets/1ac93317-fb9d-4afb-ab01-d443d5c32648" />
+
 ---
 
 ## 2. Palavras sobre `{a,b}` com exatamente dois `a`
@@ -113,6 +115,8 @@ Como existem somente dois `a` escritos explicitamente na Regex, nenhuma palavra 
 | `aaa` | Rejeitada | Possui 3 `a` |
 | `bababa` | Rejeitada | Possui 3 `a` |
 
+<img width="1281" height="870" alt="image" src="https://github.com/user-attachments/assets/8430e267-faeb-4154-8a05-b77921f9e44d" />
+
 ---
 
 ## 3. Identificador com duas maiúsculas, três algarismos e uma minúscula opcional
@@ -168,6 +172,8 @@ L = { identificadores formados por 2 letras maiúsculas,
 | `ab123` | Rejeitado | Letras iniciais não são maiúsculas |
 | `AB123M` | Rejeitado | O caractere opcional deve ser minúsculo |
 | `AB-123` | Rejeitado | Hífen não faz parte do formato |
+
+<img width="1276" height="881" alt="image" src="https://github.com/user-attachments/assets/c6c06fd5-f504-4442-be54-fac908666f02" />
 
 ---
 
@@ -321,6 +327,8 @@ Garante que nenhum caractere extra seja permitido após o turno.
 | `SIS-2025-0001-M` | Aceita | Número com zeros à esquerda é permitido |
 | `SIS-2028-9876-N` | Aceita | Formato completo válido |
 
+<img width="1272" height="792" alt="image" src="https://github.com/user-attachments/assets/f60396d5-f5d4-4143-b0dd-5843a4d8f2f6" />
+
 ## Casos inválidos
 
 | Entrada | Esperado | Regra violada |
@@ -342,6 +350,8 @@ Garante que nenhum caractere extra seja permitido após o turno.
 | ` CCO-2026-1234-M` | Rejeita | Espaço extra no início |
 | `CCO-2026-1234-M ` | Rejeita | Espaço extra no final |
 
+<img width="1275" height="862" alt="image" src="https://github.com/user-attachments/assets/345c143e-e243-4cfa-91b4-ae763965fb34" />
+
 ---
 
 # Casos de fronteira
@@ -358,6 +368,8 @@ Os casos de fronteira verificam os limites exatos das regras.
 | `ESW-2026-9999-T` | Aceita | Maior número possível com 4 dígitos |
 | `ESW-2026-999-T` | Rejeita | Apenas 3 algarismos |
 | `ESW-2026-10000-T` | Rejeita | 5 algarismos |
+
+<img width="1276" height="777" alt="image" src="https://github.com/user-attachments/assets/521c3fd5-f22d-4936-a2d6-96e89dc2f21e" />
 
 ---
 
@@ -376,6 +388,8 @@ São entradas próximas do formato correto, úteis para encontrar erros na Regex
 | `CCO--2026-1234-M` | Rejeita | Hífen extra |
 | `CCO-2026--1234-M` | Rejeita | Hífen extra |
 | `CCO-2026-1234-` | Rejeita | Turno ausente |
+
+<img width="1267" height="672" alt="image" src="https://github.com/user-attachments/assets/8bb71182-5dfd-4493-94aa-34c05adfce78" />
 
 ---
 
