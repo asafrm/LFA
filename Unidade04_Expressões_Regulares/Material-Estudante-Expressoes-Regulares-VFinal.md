@@ -420,12 +420,16 @@ Sobre \(\Sigma=\{0,1\}\), construa uma ER para todas as palavras que terminam em
 **Sua expressão:** `(0|1)*00`  
 **Regex prática para teste:** `^[01]*00$`
 
+<img width="1476" height="866" alt="image" src="https://github.com/user-attachments/assets/0aac31b4-4758-4c07-b3ae-dbe6dd21594f" />
+
 ## Exercício 2 — Exatamente dois `a`
 
 Sobre \(\Sigma=\{a,b\}\), construa uma ER para palavras que possuem exatamente dois símbolos `a` e qualquer quantidade de `b`.
 
 **Sua expressão:** `b*ab*ab*`  
 **Regex prática para teste:** `^b*ab*ab*$`
+
+<img width="1422" height="832" alt="image" src="https://github.com/user-attachments/assets/6fc036ad-b431-4833-806b-adbc5c78d418" />
 
 ## Exercício 3 — Identificador acadêmico
 
@@ -437,6 +441,8 @@ Construa uma Regex prática para um identificador que:
 - não admite caracteres extras.
 
 **Sua expressão:** `^[A-Z]{2}[0-9]{3}[a-z]?$`
+
+<img width="1417" height="852" alt="image" src="https://github.com/user-attachments/assets/7666ddca-9e37-44e7-9b02-abb27d390e30" />
 
 ---
 
@@ -501,6 +507,9 @@ L=\{c\texttt{-}a\texttt{-}d_1d_2d_3d_4\texttt{-}t
 **Regex:**  
 `^(CCO|ESW|SIS)-202[4-9]-[0-9]{4}-[MTN]$`
 
+<img width="1451" height="860" alt="image" src="https://github.com/user-attachments/assets/4cd2e08e-9dcb-4e54-9271-b78a9549b998" />
+<img width="1460" height="866" alt="image" src="https://github.com/user-attachments/assets/1980d36b-42a1-47ae-ba79-90c3a423e365" />
+
 **Justificativa por blocos:**  
 - `(CCO|ESW|SIS)` permite somente os três cursos válidos.  
 - `-` representa o hífen literal entre os blocos.  
@@ -516,6 +525,8 @@ L=\{c\texttt{-}a\texttt{-}d_1d_2d_3d_4\texttt{-}t
 **Dois novos casos inválidos e motivo:**  
 1. `ESW-2023-1234-M` — inválido porque o ano `2023` está fora do intervalo permitido.  
 2. `SIS-2026-12345-N` — inválido porque o número possui cinco algarismos, e a regra exige exatamente quatro.
+
+<img width="1467" height="836" alt="image" src="https://github.com/user-attachments/assets/d6c76e12-2b1f-4197-bd9d-c9c4f89536ef" />
 
 ## Perguntas para justificar
 
