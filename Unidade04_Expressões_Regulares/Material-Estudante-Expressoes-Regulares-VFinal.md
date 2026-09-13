@@ -417,13 +417,15 @@ Antes de conferir o gabarito, execute este processo:
 
 Sobre \(\Sigma=\{0,1\}\), construa uma ER para todas as palavras que terminam em `00`.
 
-**Sua expressão:** ______________________________________________
+**Sua expressão:** `(0|1)*00`  
+**Regex prática para teste:** `^[01]*00$`
 
 ## Exercício 2 — Exatamente dois `a`
 
 Sobre \(\Sigma=\{a,b\}\), construa uma ER para palavras que possuem exatamente dois símbolos `a` e qualquer quantidade de `b`.
 
-**Sua expressão:** ______________________________________________
+**Sua expressão:** `b*ab*ab*`  
+**Regex prática para teste:** `^b*ab*ab*$`
 
 ## Exercício 3 — Identificador acadêmico
 
@@ -434,7 +436,7 @@ Construa uma Regex prática para um identificador que:
 - termina opcionalmente com uma letra minúscula;
 - não admite caracteres extras.
 
-**Sua expressão:** ______________________________________________
+**Sua expressão:** `^[A-Z]{2}[0-9]{3}[a-z]?$`
 
 ---
 
@@ -497,28 +499,40 @@ L=\{c\texttt{-}a\texttt{-}d_1d_2d_3d_4\texttt{-}t
 ## Produção do estudante
 
 **Regex:**  
-__________________________________________________________________  
-__________________________________________________________________
+`^(CCO|ESW|SIS)-202[4-9]-[0-9]{4}-[MTN]$`
 
 **Justificativa por blocos:**  
-__________________________________________________________________  
-__________________________________________________________________
+- `(CCO|ESW|SIS)` permite somente os três cursos válidos.  
+- `-` representa o hífen literal entre os blocos.  
+- `202[4-9]` aceita somente os anos de `2024` a `2029`.  
+- `[0-9]{4}` exige exatamente quatro algarismos no número.  
+- `[MTN]` permite somente os turnos `M`, `T` ou `N`.  
+- `^` e `$` obrigam que toda a entrada siga o formato, sem caracteres extras.
 
 **Dois novos casos válidos:**  
-1. ______________________________  
-2. ______________________________
+1. `CCO-2024-9999-T`  
+2. `SIS-2029-0000-N`
 
 **Dois novos casos inválidos e motivo:**  
-1. ______________________________  
-2. ______________________________
+1. `ESW-2023-1234-M` — inválido porque o ano `2023` está fora do intervalo permitido.  
+2. `SIS-2026-12345-N` — inválido porque o número possui cinco algarismos, e a regra exige exatamente quatro.
 
 ## Perguntas para justificar
 
-1. Qual subexpressão representa a escolha entre cursos?
-2. Como o intervalo de anos foi limitado sem aceitar `2030`?
-3. Por que `{4}` é diferente de `+` no bloco numérico?
-4. Qual é a função das âncoras?
-5. Sua expressão aceita alguma cadeia que viola as regras? Como os testes sustentam a resposta?
+1. Qual subexpressão representa a escolha entre cursos?  
+   **Resposta:** `(CCO|ESW|SIS)`. O operador `|` representa a alternância entre as três opções permitidas.
+
+2. Como o intervalo de anos foi limitado sem aceitar `2030`?  
+   **Resposta:** foi utilizada a subexpressão `202[4-9]`. Assim, os três primeiros algarismos são fixos (`202`) e o último pode ser somente de `4` a `9`, aceitando `2024` até `2029` e rejeitando `2030`.
+
+3. Por que `{4}` é diferente de `+` no bloco numérico?  
+   **Resposta:** `{4}` exige exatamente quatro ocorrências. Já `+` exige uma ou mais ocorrências, sem limitar a quantidade. Portanto, `[0-9]+` poderia aceitar números com 1, 3, 5 ou mais algarismos, enquanto `[0-9]{4}` aceita exatamente quatro.
+
+4. Qual é a função das âncoras?  
+   **Resposta:** `^` marca o início da entrada e `$` marca o fim. Juntas, garantem que a cadeia inteira siga o padrão e impedem caracteres extras antes ou depois.
+
+5. Sua expressão aceita alguma cadeia que viola as regras? Como os testes sustentam a resposta?  
+   **Resposta:** nos casos testados, não. Foram verificados cursos inválidos, anos fora do intervalo, quantidade incorreta de algarismos, letras minúsculas, separadores incorretos, turnos inválidos e caracteres extras. Todos foram rejeitados, enquanto os casos válidos foram aceitos.
 
 ## Desafio extra — DFA equivalente
 
@@ -528,6 +542,51 @@ Modele um DFA para a linguagem. Para reduzir o desenho, você pode rotular trans
 - onde ocorrem as ramificações de curso, ano e turno;
 - qual é o único estado de aceitação;
 - por que caracteres adicionais levam à rejeição.
+
+**Resposta — representação do DFA:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> q0
+
+    q0 --> qC1: C
+    q0 --> qE1: E
+    q0 --> qS1: S
+
+    qC1 --> qC2: C
+    qC2 --> qCurso: O
+
+    qE1 --> qE2: S
+    qE2 --> qCurso: W
+
+    qS1 --> qS2: I
+    qS2 --> qCurso: S
+
+    qCurso --> qA1: -
+    qA1 --> qA2: 2
+    qA2 --> qA3: 0
+    qA3 --> qA4: 2
+    qA4 --> qAno: [4-9]
+
+    qAno --> qN0: -
+    qN0 --> qN1: [0-9]
+    qN1 --> qN2: [0-9]
+    qN2 --> qN3: [0-9]
+    qN3 --> qN4: [0-9]
+
+    qN4 --> qTurno: -
+    qTurno --> qAceita: M,T,N
+
+    qErro --> qErro: qualquer símbolo
+    qAceita --> qErro: qualquer símbolo extra
+
+    state qAceita <<accepting>>
+```
+
+**Explicação:**  
+Os estados `qC1/qC2`, `qE1/qE2` e `qS1/qS2` controlam as três ramificações possíveis do curso (`CCO`, `ESW` e `SIS`). Depois de reconhecer um curso válido, o autômato passa para `qCurso`. Os estados `qA1` a `qAno` reconhecem o ano, exigindo a sequência `202` seguida de um símbolo entre `4` e `9`. Os estados `qN0` a `qN4` contam exatamente quatro algarismos. Depois do último hífen, `qTurno` aceita somente `M`, `T` ou `N`. O único estado de aceitação é `qAceita`.
+
+Qualquer transição não indicada a partir dos estados acima deve ir para o estado sumidouro `qErro`. Depois de chegar a `qAceita`, qualquer caractere adicional também leva a `qErro`, pois nenhuma parte extra é permitida.
 
 ---
 
@@ -553,14 +612,18 @@ Use o [Regex Learn Playground](https://regexlearn.com/playground) para testar a 
 
 | Entrada | Esperado | Obtido | Regra verificada |
 |---|---|---|---|
-| `CCO-2024-0001-M` | aceita |  | curso, limite inferior e formato |
-| `ESW-2026-1042-N` | aceita |  | formato geral |
-| `ADS-2026-0001-N` | rejeita |  | curso |
-| `CCO-2030-0001-M` | rejeita |  | ano |
-| caso criado 1 |  |  |  |
-| caso criado 2 |  |  |  |
-| caso criado 3 |  |  |  |
-| caso criado 4 |  |  |  |
+| `CCO-2024-0001-M` | aceita | aceita | curso, limite inferior e formato |
+| `ESW-2026-1042-N` | aceita | aceita | formato geral |
+| `ADS-2026-0001-N` | rejeita | rejeita | curso |
+| `CCO-2030-0001-M` | rejeita | rejeita | ano |
+| `CCO-2024-9999-T` | aceita | aceita | limite inferior do ano (`2024`) |
+| `SIS-2029-0000-N` | aceita | aceita | limite superior do ano (`2029`) |
+| `ESW-2023-1234-M` | rejeita | rejeita | caso quase correto: ano fora do intervalo |
+| `CCO-2026-0001-MXYZ` | rejeita | rejeita | caracteres extras após o turno |
+
+**Regex testada:** `^(CCO|ESW|SIS)-202[4-9]-[0-9]{4}-[MTN]$`
+
+**Análise dos testes:** todos os resultados obtidos coincidiram com os resultados esperados. Por isso, não foi necessária correção da expressão. Os testes cobrem casos válidos, inválidos, os dois limites de ano e entradas quase corretas ou com caracteres extras.
 
 ## Critérios de avaliação — 0,5 ponto
 
@@ -576,13 +639,26 @@ Use o [Regex Learn Playground](https://regexlearn.com/playground) para testar a 
 
 # 11. Perguntas de reflexão
 
-1. Toda expressão regular **formal** representa uma linguagem regular?
-2. Toda linguagem regular pode ser representada por uma expressão regular?
-3. Qual é a relação entre uma ER, um NFA e um DFA?
-4. Qual é a diferença entre uma expressão regular teórica e as extensões de motores de programação?
-5. Por que um autômato finito reconhece paridade, mas não consegue contar arbitrariamente e comparar duas quantidades sem limite?
-6. Por que \(\{a^nb^n\mid n\geq0\}\) não é regular?
-7. O que muda ao passarmos de linguagens regulares para linguagens livres de contexto?
+1. Toda expressão regular **formal** representa uma linguagem regular?  
+   **Resposta:** Sim. Pela definição formal, toda expressão regular construída a partir de símbolos do alfabeto, união, concatenação e fechamento de Kleene representa uma linguagem regular.
+
+2. Toda linguagem regular pode ser representada por uma expressão regular?  
+   **Resposta:** Sim. Pelo Teorema de Kleene, toda linguagem regular pode ser representada por uma expressão regular e também reconhecida por um autômato finito.
+
+3. Qual é a relação entre uma ER, um NFA e um DFA?  
+   **Resposta:** os três possuem o mesmo poder de reconhecimento para linguagens regulares. Uma ER pode ser convertida em um NFA, e um NFA pode ser convertido em um DFA. Assim, eles podem representar a mesma linguagem regular.
+
+4. Qual é a diferença entre uma expressão regular teórica e as extensões de motores de programação?  
+   **Resposta:** a expressão regular teórica usa os operadores fundamentais de união, concatenação e fechamento de Kleene para descrever linguagens regulares. Motores Regex de programação acrescentam recursos práticos, como classes de caracteres, âncoras, quantificadores, grupos e escapes. Alguns motores ainda possuem recursos, como retroreferências e recursão, que podem ultrapassar o poder das expressões regulares formais.
+
+5. Por que um autômato finito reconhece paridade, mas não consegue contar arbitrariamente e comparar duas quantidades sem limite?  
+   **Resposta:** para reconhecer paridade, basta guardar uma informação finita: se a quantidade lida até o momento é par ou ímpar. Isso pode ser representado com dois estados. Já comparar duas quantidades arbitrariamente grandes exigiria lembrar uma contagem sem limite, algo que um autômato finito não consegue fazer, pois possui apenas uma quantidade finita de estados.
+
+6. Por que \(\{a^nb^n\mid n\geq0\}\) não é regular?  
+   **Resposta:** porque, para reconhecer essa linguagem, seria necessário lembrar quantos símbolos `a` foram lidos para depois verificar se existe exatamente a mesma quantidade de símbolos `b`. Como `n` pode crescer sem limite, um DFA precisaria de memória ilimitada, o que não possui.
+
+7. O que muda ao passarmos de linguagens regulares para linguagens livres de contexto?  
+   **Resposta:** as linguagens livres de contexto podem representar padrões que exigem uma forma de memória não limitada, normalmente modelada por uma pilha em um autômato com pilha. Isso permite reconhecer linguagens como \(\{a^nb^n\mid n\geq0\}\), que não podem ser reconhecidas por um autômato finito.
 
 **Síntese esperada:** linguagens livres de contexto podem exigir memória não limitada na forma de uma pilha. Por exemplo, em \(a^nb^n\), é necessário conservar quantos `a` foram lidos para comparar com a quantidade posterior de `b`; um DFA possui apenas um número finito de estados.
 
